@@ -1,4 +1,4 @@
-<!-- ----- début viewAll -->
+<!-- ----- début evenementViewAll -->
 <?php
 
 require($root . '/app/view/fragment/fragmentGenealogieHeader.php');
@@ -35,4 +35,4 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.php');
 </div>
 <?php include $root . '/app/view/fragment/fragmentGenealogieFooter.html'; ?>
 
-<!-- ----- fin viewAll -->
+<!-- ----- fin evenementViewAll -->

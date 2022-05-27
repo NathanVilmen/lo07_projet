@@ -12,8 +12,7 @@ class ModelEvenement
     private $event_lieu;
 
     /**
-     * @param $id l'id de la famille
-     * @param $nom : le nom de la famille
+     * @param $famille_id l'id de la famille
      */
     public function __construct($famille_id = NULL, $id = NULL, $iid = NULL, $event_type = NULL, $event_date = NULL, $event_lieu = NULL) {
         // valeurs nulles si pas de passage de parametres
@@ -134,10 +133,12 @@ class ModelEvenement
 
             /*$requete1 = "select id from famille where nom=?";
             $preparation1 = $database->prepare($requete1);
-            $famille_id = $preparation1->execute([$_SESSION["famille"]]);
-            print_r($famille_id);
-            $famille_id = $famille_id[0];
-            print_r($famille_id);
+            $preparation1->execute([$_SESSION["famille"]]);
+            $famille_id = $preparation1->fetch()["id"];
+
+            foreach($preparation1 as $row){
+                print_r($row);
+            }
 
             echo "<h1>$famille_id</h1>";
             echo "<h1>{$_SESSION["famille"]}</h1>";*/
@@ -164,35 +165,40 @@ class ModelEvenement
         try {
             $database = Model::getInstance();
 
+            $individu = $_GET["individu"];
+            $individu = implode(" : ", $individu);
+
+            $nom = $individu[0];
+            $prenom = $individu[1];
+
+            echo "<h1>$nom</h1>";
+            echo "<h1>$prenom</h1>";
+
+            //recherche de famille_id
+            $requete_famille = "select id from famille where nom = ?";
+            $preparation_famille = $database->prepare($requete_famille);
+            $preparation_famille->execute([$nom]);
+            $famille_id = $preparation_famille->fetch()["famille_id"];
+
             // recherche de la valeur de la clé = max(id) + 1
-            $query = "select max(id) from famille";
+            $query = "select max(id) from evenement";
             $statement = $database->query($query);
             $tuple = $statement->fetch();
             $id = $tuple['0'];
             $id++;
 
             // ajout d'un nouveau tuple;
-            $query = "insert into famille value (:id, :nom)";
+            $query = "insert into evenement value (:famille_id, :id, :iid, :event_type, :event_date, :event_lieu)";
             $statement = $database->prepare($query);
             $statement->execute([
+                'famille_id' => $famille_id,
+                'iid' => $iid,
                 'id' => $id,
-                'nom' => $nom
+                'event_type' => $_GET["type"],
+                'event_date' => $_GET["date"],
+                'event_lieu' => $_GET["lieu"]
             ]);
             return $id;
-        } catch (PDOException $e) {
-            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-            return NULL;
-        }
-    }
-
-    public static function getAllNom() {
-        try {
-            $database = Model::getInstance();
-            $query = "select nom from famille";
-            $statement = $database->prepare($query);
-            $statement->execute();
-            $results = $statement->fetchAll(PDO::FETCH_COLUMN, 0);
-            return $results;
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
             return NULL;

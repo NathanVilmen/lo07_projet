@@ -2,6 +2,7 @@
 <!-- ----- debut ControllerEvenement -->
 <?php
 require_once '../model/ModelEvenement.php';
+require_once '../model/ModelIndividu.php';
 session_start();
 
 class ControllerEvenement {
@@ -16,54 +17,22 @@ class ControllerEvenement {
         require ($vue);
     }
 
+    //Fonction pour ajouter un événement, est appelée depuis la barre du menu
+    public static function evenementAdd(){
+        $individus = ModelIndividu::getAll();
 
-
-    // Affiche le formulaire de creation d'une famille
-    public static function familleCreate() {
-        // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewInsert.php';
+        $vue = $root . '/app/view/evenement/evenementViewAdd.php';
         require ($vue);
     }
 
-    public static function familleCreated() {
-        // ajouter une validation des informations du formulaire
-        $results = ModelFamille::insert(htmlspecialchars($_GET['nom']));
+    public static function evenementAdded(){
+        $results = ModelEvenement::insert();
 
-        //affectation de la variable de session
-        session_start();
-        $_SESSION["famille"]=$_GET['nom'];
-
-        // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewInserted.php';
+        $vue = $root . '/app/view/evenement/evenementViewAdded.php';
         require ($vue);
     }
-
-
-    // Affiche un formulaire pour sélectionner un id qui existe
-    public static function familleReadNom() {
-        $results = ModelFamille::getAllNom();
-
-        if (DEBUG)
-            echo ("ControllerFamille : familleReadNom</br>");
-        // ----- Construction chemin de la vue
-        include 'config.php';
-        $vue = $root . '/app/view/famille/viewNom.php';
-        require ($vue);
-    }
-
-
-    public static function familleSelected(){
-        session_start();
-        $_SESSION["famille"]=$_GET['nom'];
-        $nom = $_GET['nom'];
-        include 'config.php';
-        $vue = $root . '/app/view/famille/viewNomSelected.php';
-        require ($vue);
-    }
-
-
 }
 ?>
 <!-- ----- fin ControllerEvenement -->

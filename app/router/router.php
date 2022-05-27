@@ -40,6 +40,8 @@ switch ($action) {
         break;
     //case "producteurReadAll" :
     case "evenementReadAll" :
+    case "evenementAdd" :
+    case "evenementAdded" :
         ControllerEvenement::$action();
         break;
     /*case "recolteReadAll" :
