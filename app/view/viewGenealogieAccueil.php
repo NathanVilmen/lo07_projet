@@ -1,4 +1,4 @@
-<!-- ----- debut de la page cave_acceuil -->
+<!-- ----- debut de la page Genealogieacceuil -->
 <?php include 'fragment/fragmentGenealogieHeader.html'; ?>
 <body>
   <div class="container">
@@ -13,7 +13,7 @@
   include 'fragment/fragmentGenealogieFooter.html';
   ?>
 
-  <!-- ----- fin de la page cave_accueil -->
+  <!-- ----- fin de la page Genealogieaccueil -->
 
 </body>
 </html>

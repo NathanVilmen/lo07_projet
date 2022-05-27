@@ -1,5 +1,5 @@
 
-<!-- ----- debut Router -->
+<!-- ----- Début Router -->
 <?php
 require ('../controller/ControllerFamille.php');
 
@@ -21,6 +21,14 @@ $args = $param;
 
 // --- Liste des méthodes autorisées
 switch ($action) {
+    case "familleReadAll":
+    case "familleCreate":
+    case "familleCreated":
+    case "familleReadNom":
+    case "familleSelected":
+        ControllerFamille::$action();
+        break;
+
     /*case "vinReadAll" :
     case "vinReadOne" :
     case "vinReadId" :
