@@ -2,7 +2,7 @@
 <!-- ----- début viewInsert -->
 
 <?php
-require ($root . '/app/view/fragment/fragmentGenealogieHeader.html');
+require($root . '/app/view/fragment/fragmentGenealogieHeader.php');
 ?>
 
 <body>

@@ -1,8 +1,8 @@
-
+<?php //session_start()?>
 <!-- ----- début fragmentGenealogieHeader -->
 <html>
   <head>
-    <title>La cave de l'Utt</title>
+    <title>Généalogie - LO07 Projet</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

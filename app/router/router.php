@@ -2,6 +2,7 @@
 <!-- ----- Début Router -->
 <?php
 require ('../controller/ControllerFamille.php');
+require ('../controller/ControllerEvenement.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -29,28 +30,19 @@ switch ($action) {
         ControllerFamille::$action();
         break;
 
-    /*case "vinReadAll" :
-    case "vinReadOne" :
+    case "familleReadAll" :
+    /*case "vinReadOne" :
     case "vinReadId" :
     case "vinCreate" :
     case "vinCreated" :
-    case "vinDeleted" :
-        ControllerVin::$action($args);
+    case "vinDeleted" :*/
+        ControllerFamille::$action($args);
         break;
-    case "producteurReadAll" :
-    case "producteurReadOne" :
-    case "producteurReadId" :
-    case "producteurCreate" :
-    case "producteurCreated" :
-    case "producteurListRegion" :
-    case "producteurNombreRegion" :
-    case "producteurDeleted" :
-        ControllerProducteur::$action($args);
+    //case "producteurReadAll" :
+    case "evenementReadAll" :
+        ControllerEvenement::$action();
         break;
-    case "mesPropositions" :
-        ControllerCave::$action();
-        break;
-    case "recolteReadAll" :
+    /*case "recolteReadAll" :
     case "recolteCreate" :
     case "recolteCreated" :
         ControllerRecolte::$action();

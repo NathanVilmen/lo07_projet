@@ -1,28 +1,18 @@
 
-<!-- ----- debut ControllerFamille -->
+<!-- ----- debut ControllerEvenement -->
 <?php
-require_once '../model/ModelFamille.php';
+require_once '../model/ModelEvenement.php';
 session_start();
 
-class ControllerFamille {
-    // --- page d'accueil
-    public static function genealogieAccueil() {
-     include 'config.php';
-     $vue = $root . '/app/view/viewGenealogieAccueil.php';
-     if (DEBUG)
-      echo ("ControllerGenealogie : genealogieAccueil : vue = $vue");
-     require ($vue);
-    }
-
-
-    // --- Liste des familles
-    public static function familleReadAll() {
-        $results = ModelFamille::getAll();
+class ControllerEvenement {
+    // --- Liste des évènements
+    public static function evenementReadAll() {
+        $results = ModelEvenement::getAll();
         // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewAll.php';
+        $vue = $root . '/app/view/evenement/evenementViewAll.php';
         if (DEBUG)
-            echo ("ControllerFamille : familleReadAll : vue = $vue");
+            echo ("ControllerEvenement : evenementReadAll : vue = $vue");
         require ($vue);
     }
 
@@ -41,7 +31,7 @@ class ControllerFamille {
         $results = ModelFamille::insert(htmlspecialchars($_GET['nom']));
 
         //affectation de la variable de session
-        //session_start();
+        session_start();
         $_SESSION["famille"]=$_GET['nom'];
 
         // ----- Construction chemin de la vue
@@ -65,7 +55,7 @@ class ControllerFamille {
 
 
     public static function familleSelected(){
-        //session_start();
+        session_start();
         $_SESSION["famille"]=$_GET['nom'];
         $nom = $_GET['nom'];
         include 'config.php';
@@ -76,6 +66,6 @@ class ControllerFamille {
 
 }
 ?>
-<!-- ----- fin ControllerFamille -->
+<!-- ----- fin ControllerEvenement -->
 
 

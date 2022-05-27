@@ -1,5 +1,5 @@
 <!-- ----- debut fragmentCaveJumbotron -->
-<?php // session_start()?>
+<?php //session_start()?>
 
 <div class="jumbotron">
   <?php
