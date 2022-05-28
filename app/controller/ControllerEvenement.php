@@ -19,7 +19,7 @@ class ControllerEvenement {
 
     //Fonction pour ajouter un événement, est appelée depuis la barre du menu
     public static function evenementAdd(){
-        $individus = ModelIndividu::getAll();
+        $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
         include 'config.php';
         $vue = $root . '/app/view/evenement/evenementViewAdd.php';

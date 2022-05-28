@@ -143,12 +143,12 @@ class ModelIndividu
     /**
      * @return array|false|null le tableau de résultats de la requete
      */
-    public static function getAll() {
+    public static function getAllFromFamily($nom_famille) {
         try {
             $database = Model::getInstance();
-            $query = "select * from individu";
+            $query = "select * from individu where famille_id = (select id from famille where nom = ?)";
             $statement = $database->prepare($query);
-            $statement->execute();
+            $statement->execute([$nom_famille]);
             $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelIndividu");
             return $results;
         } catch (PDOException $e) {

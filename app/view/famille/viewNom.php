@@ -1,7 +1,7 @@
 
 <!-- ----- début viewNom -->
 <?php
-require($root . '/app/view/fragment/fragmentGenealogieHeader.php');
+require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 ?>
 
 <body>

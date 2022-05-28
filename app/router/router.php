@@ -3,6 +3,7 @@
 <?php
 require ('../controller/ControllerFamille.php');
 require ('../controller/ControllerEvenement.php');
+require ('../controller/ControllerLien.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -44,11 +45,11 @@ switch ($action) {
     case "evenementAdded" :
         ControllerEvenement::$action();
         break;
-    /*case "recolteReadAll" :
-    case "recolteCreate" :
-    case "recolteCreated" :
-        ControllerRecolte::$action();
-        break;*/
+    case "lienReadAll" :
+    case "lienAddParent" :
+    case "lienParentAdded" :
+        ControllerLien::$action();
+        break;
     // Tache par défaut
     default:
         $action = "genealogieAccueil";

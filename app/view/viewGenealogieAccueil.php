@@ -1,5 +1,5 @@
 <!-- ----- debut de la page Genealogieacceuil -->
-<?php include 'fragment/fragmentGenealogieHeader.php'; ?>
+<?php include 'fragment/fragmentGenealogieHeader.html'; ?>
 <body>
   <div class="container">
     <?php

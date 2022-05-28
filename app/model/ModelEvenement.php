@@ -158,27 +158,39 @@ class ModelEvenement
     }
 
     /**
-     * @param $nom : le nom de la famille
      * @return int|mixed|null : l'id de la famille insérée
      */
-    public static function insert($nom) {
+    public static function insert() {
         try {
             $database = Model::getInstance();
 
+            //On obtient le nom et le prénom de la personne concernée par l'évènement
+            //echo "<h1>{$_GET["individu"]}</h1>";
             $individu = $_GET["individu"];
-            $individu = implode(" : ", $individu);
-
+            $individu = explode(" : ", $individu);
             $nom = $individu[0];
             $prenom = $individu[1];
 
-            echo "<h1>$nom</h1>";
-            echo "<h1>$prenom</h1>";
+            //echo "<h1>$nom</h1>";
+            //echo "<h1>$prenom</h1>";
 
             //recherche de famille_id
             $requete_famille = "select id from famille where nom = ?";
             $preparation_famille = $database->prepare($requete_famille);
-            $preparation_famille->execute([$nom]);
-            $famille_id = $preparation_famille->fetch()["famille_id"];
+            $preparation_famille->execute([$_SESSION["famille"]]);
+            $famille_id = $preparation_famille->fetch()["id"];
+
+            //echo "<h1>f = $famille_id</h1>";
+
+            //recherche de l'id de l'individu (iid dans la table)
+            $requete_iid = "select id from individu where nom = :nom and prenom = :prenom";
+            $preparation_iid = $database->prepare($requete_iid);
+            $preparation_iid->execute([
+                'nom' => $nom,
+                'prenom' => $prenom
+            ]);
+            $iid = $preparation_iid->fetch()["id"];
+            //echo "<h1>iid = $iid</h1>";
 
             // recherche de la valeur de la clé = max(id) + 1
             $query = "select max(id) from evenement";
@@ -186,19 +198,20 @@ class ModelEvenement
             $tuple = $statement->fetch();
             $id = $tuple['0'];
             $id++;
+            //echo "<h1>id = $id</h1>";
 
             // ajout d'un nouveau tuple;
             $query = "insert into evenement value (:famille_id, :id, :iid, :event_type, :event_date, :event_lieu)";
             $statement = $database->prepare($query);
             $statement->execute([
                 'famille_id' => $famille_id,
-                'iid' => $iid,
                 'id' => $id,
+                'iid' => $iid,
                 'event_type' => $_GET["type"],
                 'event_date' => $_GET["date"],
                 'event_lieu' => $_GET["lieu"]
             ]);
-            return $id;
+            return array($famille_id, $id, $iid);
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
             return NULL;
