@@ -203,4 +203,70 @@ class ModelLien
             return NULL;
         }
     }
+
+    public static function insert() {
+        try {
+            $database = Model::getInstance();
+
+            //On cherche le nom et prenom de l'homme
+            $homme = $_GET["homme"];
+            $homme = explode(" : ", $homme);
+            $nom_homme = $homme[0];
+            $prenom_homme = $homme[1];
+
+            //On cherche le nom et prenom de la femme
+            $femme = $_GET["femme"];
+            $femme = explode(" : ", $femme);
+            $nom_femme = $femme[0];
+            $prenom_femme = $femme[1];
+
+            //recherche de famille_id
+            $requete_famille = "select id from famille where nom = ?";
+            $preparation_famille = $database->prepare($requete_famille);
+            $preparation_famille->execute([$_SESSION["famille"]]);
+            $famille_id = $preparation_famille->fetch()["id"];
+
+            //recherche de l'id de l'homme (iid1 dans la table)
+            $requete_iid1 = "select id from individu where nom = :nom and prenom = :prenom";
+            $preparation_iid1 = $database->prepare($requete_iid1);
+            $preparation_iid1->execute([
+                'nom' => $nom_homme,
+                'prenom' => $prenom_homme
+            ]);
+            $iid1 = $preparation_iid1->fetch()["id"];
+
+            //recherche de l'id de la femme (iid2 dans la table)
+            $requete_iid2 = "select id from individu where nom = :nom and prenom = :prenom";
+            $preparation_iid2 = $database->prepare($requete_iid2);
+            $preparation_iid2->execute([
+                'nom' => $nom_femme,
+                'prenom' => $prenom_femme
+            ]);
+            $iid2 = $preparation_iid2->fetch()["id"];
+
+            //recherche de la valeur de la clé = max(id) + 1
+            $query = "select max(id) from lien";
+            $statement = $database->query($query);
+            $tuple = $statement->fetch();
+            $id = $tuple['0'];
+            $id++;
+
+            // ajout d'un nouveau tuple
+            $query = "insert into lien value (:famille_id, :id, :iid1, :iid2, :lien_type, :lien_date, :lien_lieu)";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'famille_id' => $famille_id,
+                'id' => $id,
+                'iid1' => $iid1,
+                'iid2' => $iid2,
+                'lien_type' => $_GET["type"],
+                'lien_date' => $_GET["date"],
+                'lien_lieu' => $_GET["lieu"]
+            ]);
+            return array($famille_id, $iid1, $iid2);
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
 }

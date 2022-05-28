@@ -33,6 +33,22 @@ class ControllerLien {
         $vue = $root . '/app/view/lien/lienViewParentAdded.php';
         require ($vue);
     }
+
+    public static function lienAddUnion(){
+        $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
+
+        include 'config.php';
+        $vue = $root . '/app/view/lien/lienViewAddUnion.php';
+        require ($vue);
+    }
+
+    public static function lienUnionAdded(){
+        $results = ModelLien::insert();
+
+        include 'config.php';
+        $vue = $root . '/app/view/lien/lienViewUnionAdded.php';
+        require ($vue);
+    }
 }
 ?>
 <!-- ----- fin ControllerEvenement -->

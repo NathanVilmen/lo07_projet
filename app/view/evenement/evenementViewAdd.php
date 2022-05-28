@@ -22,7 +22,7 @@ require ($root . 'outil/lo07_biblio_formulaire_bt.php');
             <?php
             foreach ($individus as $element) {
                 if($element->getNom() != "?") { //On ne veut pas afficher les lignes des individus ayant pour nom ? et prénom ?
-                    echo "<option>{$element->getNom()} : {$element->getPrenom()}";
+                    echo "<option>{$element->getNom()} : {$element->getPrenom()}</option>";
                 }
             }
             ?>
