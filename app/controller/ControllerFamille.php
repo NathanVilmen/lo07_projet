@@ -20,7 +20,7 @@ class ControllerFamille {
         $results = ModelFamille::getAll();
         // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewAll.php';
+        $vue = $root . '/app/view/famille/familleViewAll.php';
         if (DEBUG)
             echo ("ControllerFamille : familleReadAll : vue = $vue");
         require ($vue);
@@ -32,7 +32,7 @@ class ControllerFamille {
     public static function familleCreate() {
         // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewInsert.php';
+        $vue = $root . '/app/view/famille/familleViewInsert.php';
         require ($vue);
     }
 
@@ -46,7 +46,7 @@ class ControllerFamille {
 
         // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewInserted.php';
+        $vue = $root . '/app/view/famille/FamilleViewInserted.php';
         require ($vue);
     }
 
@@ -59,7 +59,7 @@ class ControllerFamille {
             echo ("ControllerFamille : familleReadNom</br>");
         // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewNom.php';
+        $vue = $root . '/app/view/famille/familleViewNom.php';
         require ($vue);
     }
 
@@ -69,7 +69,7 @@ class ControllerFamille {
         $_SESSION["famille"]=$_GET['nom'];
         $nom = $_GET['nom'];
         include 'config.php';
-        $vue = $root . '/app/view/famille/viewNomSelected.php';
+        $vue = $root . '/app/view/famille/familleViewNomSelected.php';
         require ($vue);
     }
 
