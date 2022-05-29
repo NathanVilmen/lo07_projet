@@ -31,20 +31,12 @@ switch ($action) {
         ControllerFamille::$action();
         break;
 
-    case "familleReadAll" :
-    /*case "vinReadOne" :
-    case "vinReadId" :
-    case "vinCreate" :
-    case "vinCreated" :
-    case "vinDeleted" :*/
-        ControllerFamille::$action($args);
-        break;
-    //case "producteurReadAll" :
     case "evenementReadAll" :
     case "evenementAdd" :
     case "evenementAdded" :
         ControllerEvenement::$action();
         break;
+
     case "lienReadAll" :
     case "lienAddParent" :
     case "lienParentAdded" :
@@ -52,6 +44,7 @@ switch ($action) {
     case "lienUnionAdded" :
         ControllerLien::$action();
         break;
+
     // Tache par défaut
     default:
         $action = "genealogieAccueil";
