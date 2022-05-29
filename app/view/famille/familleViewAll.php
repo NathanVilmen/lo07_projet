@@ -1,4 +1,4 @@
-<!-- ----- début viewAll -->
+<!-- ----- début familleViewAll -->
 <?php
 
 require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
@@ -31,4 +31,4 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 </div>
 <?php include $root . '/app/view/fragment/fragmentGenealogieFooter.html'; ?>
 
-<!-- ----- fin viewAll -->
+<!-- ----- fin familleViewAll -->

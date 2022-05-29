@@ -1,5 +1,5 @@
 
-<!-- ----- début viewInserted -->
+<!-- ----- début familleViewInserted -->
 <?php
 require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 ?>
@@ -26,7 +26,7 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
     
     include $root . '/app/view/fragment/fragmentGenealogieFooter.html';
     ?>
-    <!-- ----- fin viewInserted -->    
+    <!-- ----- fin familleViewInserted -->
 
     
     
