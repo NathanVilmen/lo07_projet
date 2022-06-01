@@ -11,6 +11,7 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
     include $root . '/app/view/fragment/fragmentGenealogieJumbotron.php';
     ?>
 
+    <h2>Liste des liens :</h2>
     <table class = "table table-striped table-bordered">
         <thead>
         <tr>

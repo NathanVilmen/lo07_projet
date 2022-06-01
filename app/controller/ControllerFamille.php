@@ -7,11 +7,14 @@ session_start();
 class ControllerFamille {
     // --- page d'accueil
     public static function genealogieAccueil() {
-     include 'config.php';
-     $vue = $root . '/app/view/viewGenealogieAccueil.php';
-     if (DEBUG)
-      echo ("ControllerGenealogie : genealogieAccueil : vue = $vue");
-     require ($vue);
+        include 'config.php';
+        $vue = $root . '/app/view/viewGenealogieAccueil.php';
+
+        //Suppression de la variable de session; on considère qu'en revenant à l'accueil on désélectionne la famille
+        $_SESSION["famille"]=NULL;
+        if (DEBUG)
+            echo ("ControllerGenealogie : genealogieAccueil : vue = $vue");
+        require ($vue);
     }
 
 

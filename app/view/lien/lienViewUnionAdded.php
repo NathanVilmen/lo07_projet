@@ -11,7 +11,7 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
     include $root . '/app/view/fragment/fragmentGenealogieJumbotron.php';
 
     if($results != NULL){
-        echo "<h2>Confirmation de la création d'un lien Union</h2>";
+        echo "<h2>Confirmation de la création d'un lien Union :</h2>";
         echo "<ul><li>famille_id = $results[0]</li>";
         echo "<li>homme_id = $results[1]</li>";
         echo "<li>femme_id = $results[2]</li>";

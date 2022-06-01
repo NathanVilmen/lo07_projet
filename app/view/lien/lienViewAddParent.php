@@ -11,7 +11,7 @@ require ($root . 'outil/lo07_biblio_formulaire_bt.php');
     include $root . '/app/view/fragment/fragmentGenealogieMenu.html';
     include $root . '/app/view/fragment/fragmentGenealogieJumbotron.php';
 
-    echo "<h1>Ajout d'un lien parental</h1>";
+    echo "<h1>Ajout d'un lien parent :</h1>";
 
     form_begin('lo07projet', 'GET', 'router.php');
     ?>
