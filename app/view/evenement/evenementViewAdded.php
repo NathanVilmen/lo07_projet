@@ -20,7 +20,7 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
         echo "<li>event_lieu = {$_GET["lieu"]}</li></ul>";
     }
     else{
-        echo "<h2>Problème dans la création de l'évenement</h2>";
+        echo "<h2>Problème dans la création de l'événement</h2>";
     }
     ?>
 </div>

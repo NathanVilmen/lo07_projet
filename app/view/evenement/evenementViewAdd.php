@@ -11,7 +11,7 @@ require ($root . 'outil/lo07_biblio_formulaire_bt.php');
     include $root . '/app/view/fragment/fragmentGenealogieMenu.html';
     include $root . '/app/view/fragment/fragmentGenealogieJumbotron.php';
 
-    echo "<h1>Ajout d'un évènement</h1>";
+    echo "<h1>Ajout d'un événement</h1>";
 
     form_begin('lo07projet', 'GET', 'router.php');
     ?>
@@ -29,7 +29,7 @@ require ($root . 'outil/lo07_biblio_formulaire_bt.php');
         </select>
         <?php
         $types_evenement = array('NAISSANCE', 'DECES');
-        form_select("Sélectionnez un type d'évènement", 'type', $types_evenement);
+        form_select("Sélectionnez un type d'événement", 'type', $types_evenement);
         ?>
 
         <!--<label for="date">Date (AAAA-MM-JJ) ?</label>
