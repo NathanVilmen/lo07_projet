@@ -65,9 +65,13 @@ class ControllerFamille {
 
 
     public static function familleSelected(){
-        //session_start();
+
+        //Initialise la variable de session sur la valeur transmise par le formulaire
         $_SESSION["famille"]=$_GET['nom'];
         $nom = $_GET['nom'];
+
+        //Cherche l'id de la famille qui correspopnd au nom
+        $id=ModelFamille::getIdFamille($nom);
         include 'config.php';
         $vue = $root . '/app/view/famille/familleViewNomSelected.php';
         require ($vue);

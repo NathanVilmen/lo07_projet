@@ -57,7 +57,7 @@ class ModelFamille
     public static function getAll() {
         try {
             $database = Model::getInstance();
-            $query = "select * from famille";
+            $query = "select * from famille order by id";
             $statement = $database->prepare($query);
             $statement->execute();
             $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelFamille");
@@ -97,6 +97,9 @@ class ModelFamille
         }
     }
 
+    /**
+     * @return array|false|null : le résultat de la requête, soit un tableau des noms des familles
+     */
     public static function getAllNom() {
         try {
             $database = Model::getInstance();
@@ -111,5 +114,25 @@ class ModelFamille
         }
     }
 
+
+    /**
+     * @param $nom : le nom de la famille pour laquelle on veut connaître l'id
+     * @return mixed|null : le résultat de la requête, soit l'id de la famille
+     */
+    public static function getIdFamille($nom){
+        try {
+            $database = Model::getInstance();
+            $query = "select id from famille where nom=:nom";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'nom'=>$nom
+            ]);
+            $results = $statement->fetch(PDO::FETCH_COLUMN);
+            return $results;
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
 
 }
