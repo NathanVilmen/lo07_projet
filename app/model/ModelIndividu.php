@@ -158,41 +158,40 @@ class ModelIndividu
     }
 
     /**
-     * @param $nom : le nom de la famille
-     * @return int|mixed|null : l'id de la famille insérée
+     * @param $nom : le nom de l'individu à ajouter
+     * @param $prenom : le prénom de l'individu à ajouter
+     * @param $sexe : le sexe de l'individu à ajouter
+     * @return mixed|null : l'id de l'individu ajouté
      */
-    public static function insert($nom) {
+    public static function insert($famille, $nom, $prenom, $sexe) {
         try {
+
             $database = Model::getInstance();
 
-            // recherche de la valeur de la clé = max(id) + 1
-            $query = "select max(id) from famille";
-            $statement = $database->query($query);
-            $tuple = $statement->fetch();
-            $id = $tuple['0'];
+            //Recherche de famille_id correspondant à la famille sélectionnée
+            $famille_id=ModelFamille::getIdFamille($famille);
+
+            // Attribution de l'encodage du sexe
+            if ($sexe='Masculin')
+                $sexe='M';
+            else
+                $sexe='F';
+
+            //Recherche de l'id à utiliser pour l'insertion
+            $id=ModelIndividu::getMaxIdFromFamily($famille_id);
             $id++;
 
             // ajout d'un nouveau tuple;
-            $query = "insert into famille value (:id, :nom)";
+            $query = "insert into individu (famille_id, id, nom, prenom, sexe)value (:famille_id, :id, :nom, :prenom, :sexe)";
             $statement = $database->prepare($query);
             $statement->execute([
+                'famille_id' => $famille_id,
                 'id' => $id,
-                'nom' => $nom
+                'nom'=>$nom,
+                'prenom'=>$prenom,
+                'sexe'=>$sexe
             ]);
-            return $id;
-        } catch (PDOException $e) {
-            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-            return NULL;
-        }
-    }
-
-    public static function getAllNom() {
-        try {
-            $database = Model::getInstance();
-            $query = "select nom from famille";
-            $statement = $database->prepare($query);
-            $statement->execute();
-            $results = $statement->fetchAll(PDO::FETCH_COLUMN, 0);
+            $results=array($famille_id, $id, $nom, $prenom, $sexe);
             return $results;
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
@@ -200,6 +199,28 @@ class ModelIndividu
         }
     }
 
+    /**
+     * @param $famille_id : l'id de la famille pour laquelle on cherche l'id max
+     * @return mixed|null : l'id max de des individus d'une famille
+     */
+    public static function getMaxIdFromFamily($famille_id){
+        try {
+            $database = Model::getInstance();
+            $query = "select max(id) from individu where famille_id=:famille_id";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'famille_id' => $famille_id
+            ]);
 
+            //Pas sûr pour cette partie là : on veut récupérer juste l'id
+            $result=$statement->fetch();
+            $id=$result[0];
+            echo "id=".$id;
+            return $id;
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
 
 }

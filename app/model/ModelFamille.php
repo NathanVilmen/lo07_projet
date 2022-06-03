@@ -127,7 +127,7 @@ class ModelFamille
             $statement->execute([
                 'nom'=>$nom
             ]);
-            $results = $statement->fetch(PDO::FETCH_COLUMN);
+            $results = $statement->fetch()["id"];
             return $results;
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());

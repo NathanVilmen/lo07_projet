@@ -49,7 +49,7 @@ class ControllerFamille {
 
         // ----- Construction chemin de la vue
         include 'config.php';
-        $vue = $root . '/app/view/famille/FamilleViewInserted.php';
+        $vue = $root . '/app/view/famille/familleViewInserted.php';
         require ($vue);
     }
 

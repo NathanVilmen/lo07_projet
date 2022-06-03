@@ -48,7 +48,9 @@
             break;
 
         case "individuReadAll":
-            ControllerIndividu::$action();
+        case "individuCreate":
+        case "individuCreated":
+        ControllerIndividu::$action();
             break;
 
         // Tache par défaut
