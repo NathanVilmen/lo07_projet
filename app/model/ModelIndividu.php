@@ -223,4 +223,57 @@ class ModelIndividu
         }
     }
 
+    /**
+     * @param $famille : la famille de l'individu sélectionné
+     * @param $individu : l'individu sélectionné, avant traitement
+     * @return array|null : les informations de l'individu à transmettreau controller
+     */
+    public static function getIndividuInfo($famille, $individu){
+
+        try{
+            $database = Model::getInstance();
+
+            // On récupère le nom et le prénom de l'individu sélectionné
+            $individu = explode(" : ", $individu);
+            $nom_individu = $individu[0];
+            $prenom_individu = $individu[1];
+
+            //On cherche l'année de naissance, le lieu de naissance, l'année de décès et le lieu de décès
+            $famille_id = ModelFamille::getIdFamille($famille);
+
+            /* Infos naissance */
+            $query1="select event_date, event_lieu from evenement where famille_id=:famille_id and event_type='NAISSANCE' and iid=(select id from individu where nom=:nom and prenom=:prenom)";
+            $statement = $database->prepare($query1);
+            $statement->execute([
+                'famille_id' => $famille_id,
+                'nom'=> $nom_individu,
+                'prenom'=> $prenom_individu
+
+            ]);
+            $result1=$statement->fetch();
+            $date_naissance=$result1[0];
+            $lieu_naissance=$result1[1];
+
+            /* Infos décès */
+            $query2="select event_date, event_lieu from evenement where famille_id=:famille_id and event_type='DECES' and iid=(select id from individu where nom=:nom and prenom=:prenom)";
+            $statement = $database->prepare($query2);
+            $statement->execute([
+                'famille_id' => $famille_id,
+                'nom'=> $nom_individu,
+                'prenom'=> $prenom_individu
+
+            ]);
+            $result2=$statement->fetch();
+            $date_deces=$result2[0];
+            $lieu_deces=$result2[1];
+
+
+            return array($nom_individu, $prenom_individu, $date_naissance, $lieu_naissance, $date_deces, $lieu_deces);
+        }
+        catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
 }

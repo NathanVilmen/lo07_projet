@@ -41,4 +41,26 @@ class ControllerIndividu
         require ($vue);
     }
 
+    public static function individuSelect(){
+        if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
+            $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
+            include 'config.php';
+            $vue = $root . '/app/view/individu/individuViewSelect.php';
+        } else {
+            include 'config.php';
+            $vue = $root . '/app/view/individu/individuSelectFamilyFirst.php';
+        }
+
+        require ($vue);
+    }
+
+    public static function individuSelected(){
+        $results = ModelIndividu::getIndividuInfo($_SESSION["famille"], $_GET['individu']);
+        // ----- Construction chemin de la vue
+        include 'config.php';
+        $vue = $root . '/app/view/individu/individuViewSelected.php';
+        if (DEBUG)
+            echo ("ControllerIndividu : individuViewSelected : vue = $vue");
+        require ($vue);    }
+
 }

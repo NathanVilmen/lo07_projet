@@ -50,6 +50,8 @@
         case "individuReadAll":
         case "individuCreate":
         case "individuCreated":
+        case "individuSelect":
+        case "individuSelected":
         ControllerIndividu::$action();
             break;
 
