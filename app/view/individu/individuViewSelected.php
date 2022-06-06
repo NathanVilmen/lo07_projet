@@ -21,8 +21,8 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 
 
         echo "<h1>Parents</h1>";
-        echo "<ul><li>Père : <a href='router.php?action=individuSelected&individu='.$results[6].$results[7]>".$results[6]." ".$results[7]."</a></li>";
-        echo "<li>Mère : <a href='router.php?action=individuSelected&target='>".$results[8]." ".$results[9]."</a></li></ul>";
+        echo "<ul><li>Père : <a href=\"router.php?action=individuSelected&individu=$pere\">".$results[6]." ".$results[7]."</a></li>";
+        echo "<li>Mère : <a href=\"router.php?action=individuSelected&individu=$mere\">".$results[8]." ".$results[9]."</a></li></ul>";
 
         echo "<h1>Unions et enfants</h1>";
         $i=0;

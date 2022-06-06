@@ -313,7 +313,7 @@ class ModelIndividu
 
             // Test si femmme ou Homme. La BDD des lien est organisée pour que l'homme soit en premier (iid1) et
             // la femme en deuxième (iid2). Si c'est un homme, je cherche les iid2, si c'est une femme, je cherche des iid1
-            if ($sexe = 'H'){
+            if ($sexe == 'H'){
                 /* ids des unions */
                 $query6 = "select iid2 from lien where iid1=:iid1 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
                 $statement = $database->prepare($query6);
@@ -333,7 +333,6 @@ class ModelIndividu
                 $result7=$statement->fetchAll();
                 $id_mariees=$result7;
             }
-            //print_r($id_mariees);
 
             //Alors si $id_unions est NULL, cela veut bien dire qu'il n'y a pas d'union.
 
@@ -362,8 +361,10 @@ class ModelIndividu
                 //print_r($noms_mariees);
                 //print_r($prenoms_mariees);
 
+
+
                 // Recherche des enfants de chaque union
-                $query9="select nom, prenom from individu where famille_id=:famille_id and (pere=:id1 and mere=:id2) or (pere=:id2 and mere=:id1)";
+                $query9="select nom, prenom from individu where famille_id=:famille_id and ((pere=:id1 and mere=:id2) or (pere=:id2 and mere=:id1))";
                 $statement = $database->prepare($query9);
                 $statement->execute([
                     'famille_id'=>$famille_id,
