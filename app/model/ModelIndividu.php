@@ -323,7 +323,7 @@ class ModelIndividu
                 ]);
                 $result6=$statement->fetchAll();
                 $id_mariees=$result6;
-            } else if ($sexe = 'F'){
+            } else{
                 $query7 = "select iid1 from lien where iid2=:iid2 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
                 $statement = $database->prepare($query7);
                 $statement->execute([

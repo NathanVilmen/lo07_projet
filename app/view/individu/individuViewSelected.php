@@ -15,6 +15,11 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
         echo "<ul><li>Né le ". $results[2]." à ".$results[3]."</li>";
         echo "<li>Décès le ".$results[4]." à ".$results[5]."</li></ul><br/>";
 
+
+        $pere="$results[6] : $results[7]";
+        $mere="$results[8] : $results[9]";
+
+
         echo "<h1>Parents</h1>";
         echo "<ul><li>Père : <a href='router.php?action=individuSelected&individu='.$results[6].$results[7]>".$results[6]." ".$results[7]."</a></li>";
         echo "<li>Mère : <a href='router.php?action=individuSelected&target='>".$results[8]." ".$results[9]."</a></li></ul>";
@@ -22,11 +27,12 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
         echo "<h1>Unions et enfants</h1>";
         $i=0;
         foreach ($results[10] as $nom_mariee){
-            echo "<ul><li>Union avec <a href='router.php?action=individuSelected&individu='.$nom_mariee.$results[11][$i].></a></li>";
+            $mariee="$nom_mariee : {$results[11][$i]}";
+            echo "<ul><li>Union avec <a href=\"router.php?action=individuSelected&individu=$mariee\">$nom_mariee {$results[11][$i]}</a></li>";
             echo "<ol>";
             foreach ($results[12][$i] as $enfant){
-
-                echo "<li>Enfant ".$enfant[0]." ".$enfant[1]."</li>";
+                $fils="$enfant[0] : $enfant[1]";
+                echo "<li>Enfant <a href=\"router.php?action=individuSelected&individu=$fils\">$enfant[0] $enfant[1]</a></li>";
             }
             echo "</ol>";
             echo "</ul>";
