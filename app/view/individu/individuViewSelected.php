@@ -34,7 +34,7 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
         }
     }
     else{
-        echo "<h2>Problème dans la sélection de l'individu</h2>";
+        "<h2>Problème dans la sélection de l'individu</h2>";
     }
     ?>
 </div>
