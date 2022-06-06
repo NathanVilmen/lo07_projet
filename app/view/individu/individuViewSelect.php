@@ -11,7 +11,7 @@ require ($root . 'outil/lo07_biblio_formulaire_bt.php');
     include $root . '/app/view/fragment/fragmentGenealogieMenu.html';
     include $root . '/app/view/fragment/fragmentGenealogieJumbotron.php';
 
-    echo "<h1>Sélection d'un individu</h1>";
+    echo "<h1>Sélection d'un individu : </h1>";
 
     form_begin('lo07projet', 'GET', 'router.php');
     ?>

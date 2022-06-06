@@ -13,7 +13,13 @@ class ModelIndividu
     private $mere;
 
     /**
-     * @param $famille_id l'id de la famille
+     * @param $famille_id : l'id de la famille de l'individu
+     * @param $id : l'id de l'individu
+     * @param $nom : le nom de l'individu
+     * @param $prenom : le prenom de l'individu
+     * @param $mere : l'id de la mere de l'individu
+     * @param $pere : l'id du pere de l'individu
+     * @param $sexe : le sexe encodé de l'individu
      */
     public function __construct($famille_id = NULL, $id = NULL, $nom = NULL, $prenom = NULL, $mere = NULL, $pere = NULL, $sexe = NULL) {
         // valeurs nulles si pas de passage de parametres
@@ -141,7 +147,8 @@ class ModelIndividu
     }
 
     /**
-     * @return array|false|null le tableau de résultats de la requete
+     * @param $nom_famille : le nom de la famille qui nous intéresse
+     * @return array|false|null : les individus issus de la famille, sous forme d'instances de ModelIndividu
      */
     public static function getAllFromFamily($nom_famille) {
         try {
@@ -212,10 +219,8 @@ class ModelIndividu
                 'famille_id' => $famille_id
             ]);
 
-            //Pas sûr pour cette partie là : on veut récupérer juste l'id
             $result=$statement->fetch();
             $id=$result[0];
-            echo "id=".$id;
             return $id;
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
@@ -226,7 +231,7 @@ class ModelIndividu
     /**
      * @param $famille : la famille de l'individu sélectionné
      * @param $individu : l'individu sélectionné, avant traitement
-     * @return array|null : les informations de l'individu à transmettreau controller
+     * @return array|null : les informations de l'individu à transmettre au controller
      */
     public static function getIndividuInfo($famille, $individu){
 
@@ -358,8 +363,6 @@ class ModelIndividu
                 $result8=$statement->fetch();
                 $noms_mariees[]=$result8[0];
                 $prenoms_mariees[]=$result8[1];
-                //print_r($noms_mariees);
-                //print_r($prenoms_mariees);
 
 
 
@@ -372,7 +375,6 @@ class ModelIndividu
                     'id2'=> $id[0]
                 ]);
                 $enfants_mariees[]=$statement->fetchAll();
-                //print_r($enfants_mariees);
             }
             return array($nom_individu, $prenom_individu, $date_naissance, $lieu_naissance, $date_deces, $lieu_deces, $nom_pere, $prenom_pere, $nom_mere, $prenom_mere, $noms_mariees, $prenoms_mariees, $enfants_mariees);
         }
