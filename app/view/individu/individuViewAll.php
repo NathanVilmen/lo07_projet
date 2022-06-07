@@ -29,8 +29,10 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
         <?php
         // La liste des familles est dans une variable $results
         foreach ($results as $element) {
-            printf("<tr><td>%d</td><td>%d</td><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>", $element->getFamilleId(),
-                $element->getId(), $element->getNom(), $element->getPrenom(), $element->getSexe(), $element->getPere(), $element->getMere());
+            if($element->getNom() != "?") {
+                printf("<tr><td>%d</td><td>%d</td><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>", $element->getFamilleId(),
+                    $element->getId(), $element->getNom(), $element->getPrenom(), $element->getSexe(), $element->getPere(), $element->getMere());
+            }
         }
         ?>
         </tbody>
