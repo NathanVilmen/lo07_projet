@@ -9,12 +9,18 @@ class ControllerIndividu
 {
     // --- Liste des individus
     public static function individuReadAll() {
-        $results = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
-        // ----- Construction chemin de la vue
-        include 'config.php';
-        $vue = $root . '/app/view/individu/individuViewAll.php';
-        if (DEBUG)
-            echo ("ControllerIndividu : individuReadAll : vue = $vue");
+        if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
+            $results = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
+            // ----- Construction chemin de la vue
+            include 'config.php';
+            $vue = $root . '/app/view/individu/individuViewAll.php';
+            if (DEBUG)
+                echo ("ControllerIndividu : individuReadAll : vue = $vue");
+        } else {
+            include 'config.php';
+            $vue = $root . '/app/view/viewSelectFamilyFirst.php';
+        }
+
         require ($vue);
     }
 
@@ -24,7 +30,7 @@ class ControllerIndividu
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
             $vue = $root . '/app/view/individu/individuViewInsert.php';
         } else {
-            $vue = $root . '/app/view/individu/individuSelectFamilyFirst.php';
+            $vue = $root . '/app/view/viewSelectFamilyFirst.php';
         }
         require ($vue);
     }
@@ -48,7 +54,7 @@ class ControllerIndividu
             $vue = $root . '/app/view/individu/individuViewSelect.php';
         } else {
             include 'config.php';
-            $vue = $root . '/app/view/individu/individuSelectFamilyFirst.php';
+            $vue = $root . '/app/view/viewSelectFamilyFirst.php';
         }
 
         require ($vue);

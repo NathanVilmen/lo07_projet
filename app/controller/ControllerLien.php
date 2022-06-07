@@ -8,21 +8,33 @@ session_start();
 class ControllerLien {
     // --- Liste des évènements
     public static function lienReadAll() {
-        $results = ModelLien::getAll();
-        // ----- Construction chemin de la vue
-        include 'config.php';
-        $vue = $root . '/app/view/lien/lienViewAll.php';
-        if (DEBUG)
-            echo ("ControllerLien : lienReadAll : vue = $vue");
+        if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
+            $results = ModelLien::getAll();
+            // ----- Construction chemin de la vue
+            include 'config.php';
+            $vue = $root . '/app/view/lien/lienViewAll.php';
+            if (DEBUG)
+                echo ("ControllerLien : lienReadAll : vue = $vue");
+        } else {
+            include 'config.php';
+            $vue = $root . '/app/view/viewSelectFamilyFirst.php';
+        }
+
         require ($vue);
     }
 
     //Fonction pour ajouter un lien parental
     public static function lienAddParent(){
-        $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
+        if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
+            $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
-        include 'config.php';
-        $vue = $root . '/app/view/lien/lienViewAddParent.php';
+            include 'config.php';
+            $vue = $root . '/app/view/lien/lienViewAddParent.php';
+        } else {
+            include 'config.php';
+            $vue = $root . '/app/view/viewSelectFamilyFirst.php';
+        }
+
         require ($vue);
     }
 
@@ -35,10 +47,16 @@ class ControllerLien {
     }
 
     public static function lienAddUnion(){
-        $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
+        if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
+            $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
-        include 'config.php';
-        $vue = $root . '/app/view/lien/lienViewAddUnion.php';
+            include 'config.php';
+            $vue = $root . '/app/view/lien/lienViewAddUnion.php';
+        } else {
+            include 'config.php';
+            $vue = $root . '/app/view/viewSelectFamilyFirst.php';
+        }
+
         require ($vue);
     }
 
