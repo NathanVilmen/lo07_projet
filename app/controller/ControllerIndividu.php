@@ -1,9 +1,10 @@
 <!-- ----- debut ControllerIndividu -->
 
-
 <?php
 require_once '../model/ModelIndividu.php';
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 class ControllerIndividu
 {

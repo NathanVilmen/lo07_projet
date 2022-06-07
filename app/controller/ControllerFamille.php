@@ -2,7 +2,9 @@
 <!-- ----- debut ControllerFamille -->
 <?php
 require_once '../model/ModelFamille.php';
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 class ControllerFamille {
     // --- page d'accueil

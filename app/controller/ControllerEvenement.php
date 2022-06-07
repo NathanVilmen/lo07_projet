@@ -3,7 +3,9 @@
 <?php
 require_once '../model/ModelEvenement.php';
 require_once '../model/ModelIndividu.php';
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 class ControllerEvenement {
     // --- Liste des évènements

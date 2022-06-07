@@ -3,7 +3,9 @@
 <?php
 require_once '../model/ModelLien.php';
 require_once '../model/ModelIndividu.php';
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 class ControllerLien {
     // --- Liste des évènements
