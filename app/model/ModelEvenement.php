@@ -17,12 +17,12 @@ class ModelEvenement
     public function __construct($famille_id = NULL, $id = NULL, $iid = NULL, $event_type = NULL, $event_date = NULL, $event_lieu = NULL) {
         // valeurs nulles si pas de passage de parametres
         if (!is_null($id)) {
-            $this->famille_id = $famille_id;
-            $this->id = $id;
-            $this->iid = $iid;
-            $this->event_type = $event_type;
-            $this->event_date = $event_date;
-            $this->event_lieu = $event_lieu;
+            $this->setFamilleId($famille_id);
+            $this->setId($id);
+            $this->setIid($iid);
+            $this->setEventType($event_type);
+            $this->setEventDate($event_date);
+            $this->setEventLieu($event_lieu);
         }
     }
 

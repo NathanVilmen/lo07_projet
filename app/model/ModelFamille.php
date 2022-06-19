@@ -14,8 +14,8 @@ class ModelFamille
     public function __construct($id = NULL, $nom = NULL) {
         // valeurs nulles si pas de passage de parametres
         if (!is_null($id)) {
-            $this->id = $id;
-            $this->nom = $nom;
+            $this->setId($id);
+            $this->setNom($nom);
         }
     }
 

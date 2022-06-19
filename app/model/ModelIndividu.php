@@ -26,13 +26,13 @@ class ModelIndividu
     public function __construct($famille_id = NULL, $id = NULL, $nom = NULL, $prenom = NULL, $mere = NULL, $pere = NULL, $sexe = NULL) {
         // valeurs nulles si pas de passage de parametres
         if (!is_null($id)) {
-            $this->famille_id = $famille_id;
-            $this->id = $id;
-            $this->nom = $nom;
-            $this->prenom = $prenom;
-            $this->sexe = $sexe;
-            $this->pere = $pere;
-            $this->mere = $mere;
+            $this->setFamilleId($famille_id);
+            $this->setId($id);
+            $this->setNom($nom);
+            $this->setPrenom($prenom);
+            $this->setSexe($sexe);
+            $this->setPere($pere);
+            $this->setMere($mere);
         }
     }
 

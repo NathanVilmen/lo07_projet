@@ -24,13 +24,13 @@ class ModelLien
     public function __construct($famille_id = NULL, $id = NULL, $iid1 = NULL, $iid2 = NULL, $lien_type = NULL, $lien_date = NULL, $lien_lieu = NULL) {
         // valeurs nulles si pas de passage de paramètres
         if (!is_null($id)) {
-            $this->famille_id = $famille_id;
-            $this->id = $id;
-            $this->iid1 = $iid1;
-            $this->iid2 = $iid2;
-            $this->lien_type = $lien_type;
-            $this->lien_date = $lien_date;
-            $this->lien_lieu = $lien_lieu;
+            $this->setFamilleId($famille_id);
+            $this->setId($id);
+            $this->setIid1($iid1);
+            $this->setIid2($iid2);
+            $this->setLienType($lien_type);
+            $this->setLienDate($lien_date);
+            $this->setLienLieu($lien_lieu);
         }
     }
 
