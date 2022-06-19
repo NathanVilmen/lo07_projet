@@ -218,5 +218,53 @@ class ModelEvenement
         }
     }
 
+    /**
+     * @param $famille_id
+     * @param $iid
+     * @return array|null Retourne la date et le lieu de naissance
+     */
+    public static function getBirthInfos($famille_id, $iid){
+        try {
+            $database = Model::getInstance();
 
+            /* Infos naissance */
+            $query1="select event_date, event_lieu from evenement where famille_id=:famille_id and event_type='NAISSANCE' and iid=:iid";
+            $statement = $database->prepare($query1);
+            $statement->execute([
+                'famille_id' => $famille_id,
+                'iid'=> $iid
+            ]);
+            $result=$statement->fetch();
+
+            return array($result[0], $result[1]); //0 => date , 1 => lieu
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+    /**
+     * @param $famille_id
+     * @param $iid
+     * @return array|null Retourne la date et le lieu de décès
+     */
+    public static function getDeathInfos($famille_id, $iid){
+        try{
+            $database = Model::getInstance();
+
+            /* Infos décès */
+            $query2="select event_date, event_lieu from evenement where famille_id=:famille_id and event_type='DECES' and iid=:iid";
+            $statement = $database->prepare($query2);
+            $statement->execute([
+                'famille_id' => $famille_id,
+                'iid'=> $iid
+            ]);
+            $result=$statement->fetch();
+
+            return array($result[0], $result[1]); //0 => date , 1 => lieu
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
 }

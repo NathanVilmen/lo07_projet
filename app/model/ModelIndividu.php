@@ -1,6 +1,8 @@
 <?php
 
 require_once 'Model.php';
+require_once 'ModelLien.php';
+require_once 'ModelEvenement.php';
 
 class ModelIndividu
 {
@@ -176,7 +178,7 @@ class ModelIndividu
             $database = Model::getInstance();
 
             //Recherche de famille_id correspondant à la famille sélectionnée
-            $famille_id=ModelFamille::getIdFamille($famille);
+            $famille_id=ModelFamille::getIdFamily($famille);
 
             // Attribution de l'encodage du sexe
             if ($sexe='Masculin')
@@ -255,29 +257,17 @@ class ModelIndividu
             $sexe=$result0[1];
 
             //On cherche l'année de naissance, le lieu de naissance, l'année de décès et le lieu de décès
-            $famille_id = ModelFamille::getIdFamille($famille);
+            $famille_id = ModelFamille::getIdFamily($famille);
 
             /* Infos naissance */
-            $query1="select event_date, event_lieu from evenement where famille_id=:famille_id and event_type='NAISSANCE' and iid=:iid";
-            $statement = $database->prepare($query1);
-            $statement->execute([
-                'famille_id' => $famille_id,
-                'iid'=> $iid
-            ]);
-            $result1=$statement->fetch();
-            $date_naissance=$result1[0];
-            $lieu_naissance=$result1[1];
+            $info_naissance = ModelEvenement::getBirthInfos($famille_id, $iid);
+            $date_naissance=$info_naissance[0];
+            $lieu_naissance=$info_naissance[1];
 
             /* Infos décès */
-            $query2="select event_date, event_lieu from evenement where famille_id=:famille_id and event_type='DECES' and iid=:iid";
-            $statement = $database->prepare($query2);
-            $statement->execute([
-                'famille_id' => $famille_id,
-                'iid'=> $iid
-            ]);
-            $result2=$statement->fetch();
-            $date_deces=$result2[0];
-            $lieu_deces=$result2[1];
+            $info_deces = ModelEvenement::getDeathInfos($famille_id, $iid);
+            $date_deces=$info_deces[0];
+            $lieu_deces=$info_deces[1];
 
             // Recherche des parents
             /* Id des parents */
@@ -315,29 +305,7 @@ class ModelIndividu
             $prenom_mere=$result5[1];
 
             // Recherche des unions et des enfants issus de ces unions
-
-            // Test si femmme ou Homme. La BDD des lien est organisée pour que l'homme soit en premier (iid1) et
-            // la femme en deuxième (iid2). Si c'est un homme, je cherche les iid2, si c'est une femme, je cherche des iid1
-            if ($sexe == 'H'){
-                /* ids des unions */
-                $query6 = "select iid2 from lien where iid1=:iid1 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
-                $statement = $database->prepare($query6);
-                $statement->execute([
-                    'famille_id'=>$famille_id,
-                    'iid1'=> $iid
-                ]);
-                $result6=$statement->fetchAll();
-                $id_mariees=$result6;
-            } else{
-                $query7 = "select iid1 from lien where iid2=:iid2 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
-                $statement = $database->prepare($query7);
-                $statement->execute([
-                    'famille_id'=>$famille_id,
-                    'iid2'=> $iid
-                ]);
-                $result7=$statement->fetchAll();
-                $id_mariees=$result7;
-            }
+            $id_mariees = ModelLien::getUnionMarried($famille_id, $iid, $sexe);
 
             //Alors si $id_unions est NULL, cela veut bien dire qu'il n'y a pas d'union.
 

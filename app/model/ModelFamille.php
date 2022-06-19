@@ -100,7 +100,7 @@ class ModelFamille
     /**
      * @return array|false|null : le résultat de la requête, soit un tableau des noms des familles
      */
-    public static function getAllNom() {
+    public static function getAllName() {
         try {
             $database = Model::getInstance();
             $query = "select nom from famille";
@@ -119,7 +119,7 @@ class ModelFamille
      * @param $nom : le nom de la famille pour laquelle on veut connaître l'id
      * @return mixed|null : le résultat de la requête, soit l'id de la famille
      */
-    public static function getIdFamille($nom){
+    public static function getIdFamily($nom){
         try {
             $database = Model::getInstance();
             $query = "select id from famille where nom=:nom";

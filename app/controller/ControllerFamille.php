@@ -58,7 +58,7 @@ class ControllerFamille {
 
     // Affiche un formulaire pour sélectionner un id qui existe
     public static function familleReadNom() {
-        $results = ModelFamille::getAllNom();
+        $results = ModelFamille::getAllName();
 
         if (DEBUG)
             echo ("ControllerFamille : familleReadNom</br>");
@@ -76,7 +76,7 @@ class ControllerFamille {
         $nom = $_GET['nom'];
 
         //Cherche l'id de la famille qui correspopnd au nom
-        $id=ModelFamille::getIdFamille($nom);
+        $id=ModelFamille::getIdFamily($nom);
         include 'config.php';
         $vue = $root . '/app/view/famille/familleViewNomSelected.php';
         require ($vue);

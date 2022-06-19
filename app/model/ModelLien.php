@@ -13,7 +13,13 @@ class ModelLien
     private $lien_lieu;
 
     /**
-     * @param $famille_id l'id de la famille
+     * @param $famille_id
+     * @param $id
+     * @param $iid1
+     * @param $iid2
+     * @param $lien_type
+     * @param $lien_date
+     * @param $lien_lieu
      */
     public function __construct($famille_id = NULL, $id = NULL, $iid1 = NULL, $iid2 = NULL, $lien_type = NULL, $lien_date = NULL, $lien_lieu = NULL) {
         // valeurs nulles si pas de passage de paramètres
@@ -162,6 +168,9 @@ class ModelLien
         }
     }
 
+    /**
+     * @return array|null un tableau avec des infos sur le parent ajouté
+     */
     public static function update(){
         try{
             $database = Model::getInstance();
@@ -204,6 +213,9 @@ class ModelLien
         }
     }
 
+    /**
+     * @return array|null un tableau avec des infos sur la personne ajoutée
+     */
     public static function insert() {
         try {
             $database = Model::getInstance();
@@ -264,6 +276,46 @@ class ModelLien
                 'lien_lieu' => $_GET["lieu"]
             ]);
             return array($famille_id, $iid1, $iid2);
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+    }
+
+    /**
+     * @param $famille_id l'id de la famille dont on cherche le conjoint
+     * @param $iid l'id de la personne dont on cherche le conjoint
+     * @param $sexe : sexe de la personne dont on cherche le conjoint
+     * @return array|false|null L'id du mari/femme
+     */
+    public static function getUnionMarried($famille_id, $iid, $sexe){
+        try{
+            $database = Model::getInstance();
+
+            // Test si femmme ou Homme. La BDD des liens est organisée pour que l'homme soit en premier (iid1) et
+            // la femme en deuxième (iid2). Si c'est un homme, je cherche les iid2, si c'est une femme, je cherche des iid1
+            if ($sexe == 'H'){
+                /* ids des unions */
+                $query6 = "select iid2 from lien where iid1=:iid1 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
+                $statement = $database->prepare($query6);
+                $statement->execute([
+                    'famille_id'=>$famille_id,
+                    'iid1'=> $iid
+                ]);
+                $result6=$statement->fetchAll();
+                //$id_mariees=$result6;
+                return $result6;
+            } else{
+                $query7 = "select iid1 from lien where iid2=:iid2 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
+                $statement = $database->prepare($query7);
+                $statement->execute([
+                    'famille_id'=>$famille_id,
+                    'iid2'=> $iid
+                ]);
+                $result7=$statement->fetchAll();
+                //$id_mariees=$result7;
+                return $result7;
+            }
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
             return NULL;
