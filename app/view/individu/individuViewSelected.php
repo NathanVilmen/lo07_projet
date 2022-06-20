@@ -12,7 +12,6 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 
     if($results != NULL){
         echo "<div class='individu'><h1>".$results[0]." ".$results[1]."</h1></div>";
-        //echo "<ul><li>Né le ". $results[2]." à ".$results[3]."</li>";
         if ($results[2]!=NULL && $results[3]!=NULL)
             echo "<ul><li>Né le ". $results[2]." à ".$results[3]."</li>";
         else
@@ -28,7 +27,6 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 
 
         echo "<h1>Parents</h1>";
-        //echo "<h1>Pere = " . $results[6] . $results[7] . "</h1>";
 
         if ($results[6]!="?" && $results[7]!="?" && $results[6]!="" && $results[7]!="")
             echo "<ul><li>Père : <a href=\"router.php?action=individuSelected&individu=$pere\">".$results[6]." ".$results[7]."</a></li>";

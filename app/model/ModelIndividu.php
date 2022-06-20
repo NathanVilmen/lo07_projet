@@ -169,6 +169,7 @@ class ModelIndividu
 
     /**
      * Fonction qui permet d'insérer un nouvel individu.
+     * @param $famille : le nom de la famille
      * @param $nom : le nom de l'individu à ajouter
      * @param $prenom : le prénom de l'individu à ajouter
      * @param $sexe : le sexe de l'individu à ajouter
@@ -286,8 +287,6 @@ class ModelIndividu
             $result3=$statement->fetch();
             $id_pere=$result3[0];
             $id_mere=$result3[1];
-            echo "<h1>pere = $id_pere</h1>";
-            echo "<h1>mere = $id_mere</h1>";
 
             /* Noms des parents */
             $query4 = "select nom, prenom from individu where famille_id=:famille_id and id=:id_pere";
@@ -309,8 +308,6 @@ class ModelIndividu
             $result5=$statement->fetch();
             $nom_mere=$result5[0];
             $prenom_mere=$result5[1];
-            echo "<h1>nom = $nom_mere</h1>";
-            echo "<h1>prenom = $prenom_mere</h1>";
 
             // Recherche des unions et des enfants issus de ces unions
             $id_mariees = ModelLien::getUnionMarried($famille_id, $iid, $sexe);
@@ -326,7 +323,6 @@ class ModelIndividu
 
             //id_mariees c'est plusieurs iid1 ou iid2
             foreach($id_mariees as $id){
-                //print_r($id);
                 //On cherche le nom et le prénom du conjoint
                 $query8 = "select nom, prenom from individu where id=:id and famille_id=:famille_id";
                 $statement = $database->prepare($query8);
@@ -358,4 +354,25 @@ class ModelIndividu
         }
     }
 
+    public static function createIndividuNull($famille){
+        try {
+            $database = Model::getInstance();
+
+            //Recherche de famille_id correspondant à la famille sélectionnée
+            $famille_id=ModelFamille::getIdFamily($famille);
+
+            // ajout d'un nouveau tuple;
+            $query = "insert into individu (famille_id, id, nom, prenom, sexe)value (:famille_id, :id, :nom, :prenom, :sexe)";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'famille_id' => $famille_id,
+                'id' => 0,
+                'nom'=>"?",
+                'prenom'=>"?",
+                'sexe'=>"?"
+            ]);
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+        }
+    }
 }

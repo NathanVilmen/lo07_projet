@@ -93,6 +93,10 @@ class ModelFamille
                 'id' => $id,
                 'nom' => $nom
             ]);
+
+            //Ajout d'un individu null
+            ModelIndividu::createIndividuNull($nom);
+
             return $id;
         } catch (PDOException $e) {
             printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
