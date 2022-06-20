@@ -9,6 +9,10 @@ if(!isset($_SESSION)){
 
 class ControllerEvenement {
     // --- Liste des évènements
+    /**
+     * Fonction qui récupère la liste des événements et redirige vers la vue correspondante
+     * @return void
+     */
     public static function evenementReadAll() {
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
             $results = ModelEvenement::getAll();
@@ -25,6 +29,11 @@ class ControllerEvenement {
     }
 
     //Fonction pour ajouter un événement, est appelée depuis la barre du menu
+
+    /**
+     * Fonction qui récupère la liste des individus d'une famille pour construire la vue d'ajout d'un événement.
+     * @return void
+     */
     public static function evenementAdd(){
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
@@ -39,6 +48,10 @@ class ControllerEvenement {
         require ($vue);
     }
 
+    /**
+     * Fonction qui récupère les éléments d'insertion d'un événement et construit la vue d'un événement ajouté.
+     * @return void
+     */
     public static function evenementAdded(){
         $results = ModelEvenement::insert();
 

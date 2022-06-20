@@ -9,6 +9,10 @@ if(!isset($_SESSION)){
 class ControllerIndividu
 {
     // --- Liste des individus
+    /**
+     * Fonction qui récupère les individus d'une famille et construit la vue correspondante.
+     * @return void
+     */
     public static function individuReadAll() {
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
             $results = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
@@ -26,6 +30,10 @@ class ControllerIndividu
     }
 
 
+    /**
+     * Fonction qui renvoie vers la vue de création d'un individu.
+     * @return void
+     */
     public static function individuCreate() {
         include 'config.php';
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
@@ -37,6 +45,10 @@ class ControllerIndividu
     }
 
 
+    /**
+     * Fonction qui récupère les informations d'insertion d'un individu et construit la vue correspondante.
+     * @return void
+     */
     public static function individuCreated() {
         // ajouter une validation des informations du formulaire
         $famille=$_SESSION["famille"];
@@ -48,6 +60,10 @@ class ControllerIndividu
         require ($vue);
     }
 
+    /**
+     * Fonction qui récupère les individus d'une famille et construit la vue de sélection.
+     * @return void
+     */
     public static function individuSelect(){
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
@@ -61,6 +77,10 @@ class ControllerIndividu
         require ($vue);
     }
 
+    /**
+     * Fonction qui récupère les informations d'un individu et construit la vue correspondante
+     * @return void
+     */
     public static function individuSelected(){
         $results = ModelIndividu::getIndividuInfo($_SESSION["famille"], $_GET['individu']);
         // ----- Construction chemin de la vue
