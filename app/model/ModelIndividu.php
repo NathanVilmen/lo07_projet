@@ -184,7 +184,7 @@ class ModelIndividu
 
             // Attribution de l'encodage du sexe
             if ($sexe='Masculin')
-                $sexe='M';
+                $sexe='H';
             else
                 $sexe='F';
 

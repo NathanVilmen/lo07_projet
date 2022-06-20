@@ -40,7 +40,12 @@ class ControllerLien {
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
             include 'config.php';
-            $vue = $root . '/app/view/lien/lienViewAddParent.php';
+            if(count($individus)<2){
+                $vue = $root . '/app/view/viewAddItemFirst.php';
+            } else{
+                $vue = $root . '/app/view/lien/lienViewAddParent.php';
+            }
+
         } else {
             include 'config.php';
             $vue = $root . '/app/view/viewSelectFamilyFirst.php';
@@ -70,7 +75,12 @@ class ControllerLien {
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
             include 'config.php';
-            $vue = $root . '/app/view/lien/lienViewAddUnion.php';
+            if(count($individus)<2){
+                $vue = $root . '/app/view/viewAddItemFirst.php';
+            } else{
+                $vue = $root . '/app/view/lien/lienViewAddUnion.php';
+            }
+
         } else {
             include 'config.php';
             $vue = $root . '/app/view/viewSelectFamilyFirst.php';

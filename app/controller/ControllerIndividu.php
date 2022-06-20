@@ -67,8 +67,15 @@ class ControllerIndividu
     public static function individuSelect(){
         if ($_SESSION["famille"]!=NULL && $_SESSION["famille"]!=""){
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
+
             include 'config.php';
-            $vue = $root . '/app/view/individu/individuViewSelect.php';
+
+            //if($individus==NULL){
+            if(count($individus) <1){
+                $vue = $root . '/app/view/viewAddItemFirst.php';
+            } else{
+                $vue = $root . '/app/view/individu/individuViewSelect.php';
+            }
         } else {
             include 'config.php';
             $vue = $root . '/app/view/viewSelectFamilyFirst.php';

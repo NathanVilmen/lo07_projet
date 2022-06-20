@@ -1,5 +1,5 @@
 
-<!-- ----- début viewSelectFamilyFirst -->
+<!-- ----- début viewAddItemFirst -->
 
 <?php
 require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
@@ -12,11 +12,11 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
     include $root . '/app/view/fragment/fragmentGenealogieJumbotron.php';
     ?>
 
-    <h2>Merci de sélectionner une famille avant toute opération</h2>
+    <h2>Il manque un item ou des informations pour pouvoir faire cette opération</h2>
 </div>
 <?php include $root . '/app/view/fragment/fragmentGenealogieFooter.html'; ?>
 
-<!-- ----- fin viewSelectFamilyFirst -->
+<!-- ----- fin viewAddItemFirst -->
 
 
 

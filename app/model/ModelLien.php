@@ -189,9 +189,24 @@ class ModelLien
                 'nom' => $nom_parent,
                 'prenom' => $prenom_parent,
             ]);
-            $tuple = $preparation_parent->fetch();
-            $sexe = $tuple[0];
-            $parent_id = $tuple[1];
+            $tuple1 = $preparation_parent->fetch();
+            $sexe = $tuple1[0];
+            $parent_id = $tuple1[1];
+
+            //On cherche l'enfant
+            $enfant = $_GET["enfant"];
+            $enfant = explode(" : ", $enfant);
+            $nom_enfant = $enfant[0];
+            $prenom_enfant = $enfant[1];
+
+            /*$requete_enfant = "select id from individu where nom = :nom and prenom = :prenom";
+            $preparation_enfant = $database->prepare($requete_enfant);
+            $preparation_enfant->execute([
+                'nom' => $nom_enfant,
+                'prenom' => $prenom_enfant,
+            ]);
+            $tuple2 = $preparation_parent->fetch();
+            $enfant_id = $tuple2[0];*/
 
             if($sexe == "H") {
                 $requete_lien = "update individu set pere = :parent_id where nom = :nom and prenom = :prenom";
@@ -202,8 +217,8 @@ class ModelLien
             $preparation_lien = $database->prepare($requete_lien);
             $preparation_lien->execute([
                 'parent_id' => $parent_id,
-                'nom' => $nom_parent,
-                'prenom' => $prenom_parent,
+                'nom' => $nom_enfant,
+                'prenom' => $prenom_enfant,
             ]);
             return array($sexe, $parent_id, $nom_parent, $prenom_parent);
         }

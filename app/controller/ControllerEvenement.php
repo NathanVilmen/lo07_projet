@@ -39,7 +39,12 @@ class ControllerEvenement {
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
             include 'config.php';
-            $vue = $root . '/app/view/evenement/evenementViewAdd.php';
+
+            if($individus==NULL){
+                $vue = $root . '/app/view/viewAddItemFirst.php';
+            } else{
+                $vue = $root . '/app/view/evenement/evenementViewAdd.php';
+            }
         } else {
             include 'config.php';
             $vue = $root . '/app/view/viewSelectFamilyFirst.php';
