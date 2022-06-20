@@ -183,15 +183,15 @@ class ModelLien
             $nom_parent = $parent[0];
             $prenom_parent = $parent[1];
 
-            $requete_parent = "select sexe, id from individu where nom = :nom and prenom = :prenom";
+            $requete_parent = "select id, sexe from individu where nom = :nom and prenom = :prenom";
             $preparation_parent = $database->prepare($requete_parent);
             $preparation_parent->execute([
                 'nom' => $nom_parent,
                 'prenom' => $prenom_parent,
             ]);
             $tuple1 = $preparation_parent->fetch();
-            $sexe = $tuple1[0];
-            $parent_id = $tuple1[1];
+            $parent_id = $tuple1[0];
+            $sexe = $tuple1[1];
 
             //On cherche l'enfant
             $enfant = $_GET["enfant"];

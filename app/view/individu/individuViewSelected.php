@@ -28,13 +28,14 @@ require($root . '/app/view/fragment/fragmentGenealogieHeader.html');
 
 
         echo "<h1>Parents</h1>";
+        //echo "<h1>Pere = " . $results[6] . $results[7] . "</h1>";
 
-        if ($results[6]!=0 && $results[7]!=0)
+        if ($results[6]!="?" && $results[7]!="?" && $results[6]!="" && $results[7]!="")
             echo "<ul><li>Père : <a href=\"router.php?action=individuSelected&individu=$pere\">".$results[6]." ".$results[7]."</a></li>";
         else
             echo "<ul><li>Père : ? </li>";
 
-        if ($results[8]!=0 && $results[9]!=0)
+        if ($results[8]!="?" && $results[9]!="?" && $results[8]!="" && $results[9]!="")
             echo "<li>Mère : <a href=\"router.php?action=individuSelected&individu=$mere\">".$results[8]." ".$results[9]."</a></li></ul>";
         else
             echo "<li>Mère : ? </li></ul>";

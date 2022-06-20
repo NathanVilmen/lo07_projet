@@ -183,10 +183,10 @@ class ModelIndividu
             $famille_id=ModelFamille::getIdFamily($famille);
 
             // Attribution de l'encodage du sexe
-            if ($sexe='Masculin')
-                $sexe='H';
+            if ($sexe=="masculin")
+                $sexe="H";
             else
-                $sexe='F';
+                $sexe="F";
 
             //Recherche de l'id à utiliser pour l'insertion
             $id=ModelIndividu::getMaxIdFromFamily($famille_id);
@@ -286,6 +286,8 @@ class ModelIndividu
             $result3=$statement->fetch();
             $id_pere=$result3[0];
             $id_mere=$result3[1];
+            echo "<h1>pere = $id_pere</h1>";
+            echo "<h1>mere = $id_mere</h1>";
 
             /* Noms des parents */
             $query4 = "select nom, prenom from individu where famille_id=:famille_id and id=:id_pere";
@@ -307,6 +309,8 @@ class ModelIndividu
             $result5=$statement->fetch();
             $nom_mere=$result5[0];
             $prenom_mere=$result5[1];
+            echo "<h1>nom = $nom_mere</h1>";
+            echo "<h1>prenom = $prenom_mere</h1>";
 
             // Recherche des unions et des enfants issus de ces unions
             $id_mariees = ModelLien::getUnionMarried($famille_id, $iid, $sexe);
