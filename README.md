@@ -16,8 +16,8 @@
 
 https://git.utt.fr/mirgalem/lo07_projet
 
-## License
-Open Source
+## Licence
+Ce projet est sous licence GNU General Public Licence 3.0. [En savoir plus.](https://choosealicense.com/licenses/gpl-3.0/)
 
 ## Statut du projet
 Terminé
