@@ -12,7 +12,12 @@ class ModelEvenement
     private $event_lieu;
 
     /**
-     * @param $famille_id l'id de la famille
+     * @param $famille_id : l'id de la famille
+     * @param $id : l'id de l'événement
+     * @param $iid : l'id de l'individu
+     * @param $event_type : le type d'événement
+     * @param $event_date : la date de l'événement
+     * @param $event_lieu : le lieu de l'événement
      */
     public function __construct($famille_id = NULL, $id = NULL, $iid = NULL, $event_type = NULL, $event_date = NULL, $event_lieu = NULL) {
         // valeurs nulles si pas de passage de parametres
@@ -27,7 +32,7 @@ class ModelEvenement
     }
 
     /**
-     * @return mixed|null
+     * @return mixed|null : l'id de la famille
      */
     public function getFamilleId()
     {
@@ -35,7 +40,7 @@ class ModelEvenement
     }
 
     /**
-     * @param mixed|null $famille_id
+     * @param mixed|null $famille_id : l'id de la famille
      */
     public function setFamilleId($famille_id)
     {
@@ -43,7 +48,7 @@ class ModelEvenement
     }
 
     /**
-     * @return mixed
+     * @return mixed : l'id de l'événement
      */
     public function getId()
     {
@@ -125,26 +130,14 @@ class ModelEvenement
 
 
     /**
-     * @return array|false|null le tableau de résultats de la requete
+     * Fonction qui permet de recueillir tous les événements d'une famille dans un tableau.
+     * @return array|false|null : le tableau de résultats de la requete
      */
     public static function getAll() {
         try {
             $database = Model::getInstance();
 
-            /*$requete1 = "select id from famille where nom=?";
-            $preparation1 = $database->prepare($requete1);
-            $preparation1->execute([$_SESSION["famille"]]);
-            $famille_id = $preparation1->fetch()["id"];
-
-            foreach($preparation1 as $row){
-                print_r($row);
-            }
-
-            echo "<h1>$famille_id</h1>";
-            echo "<h1>{$_SESSION["famille"]}</h1>";*/
-
             $requete2 = "select * from evenement where famille_id = (select id from famille where nom=?)";
-            //$preparation2 = $database->prepare($requete2);
             $preparation2 = $database->prepare($requete2);
 
             $preparation2->execute([$_SESSION["famille"]]);
@@ -158,29 +151,24 @@ class ModelEvenement
     }
 
     /**
-     * @return int|mixed|null : l'id de la famille insérée
+     * Fonction qui permet d'insérer un nouvel événement.
+     * @return array|null : tableau contenant l'id de la famille, l'id de l'événement, l'id de l'individu
      */
     public static function insert() {
         try {
             $database = Model::getInstance();
 
             //On obtient le nom et le prénom de la personne concernée par l'évènement
-            //echo "<h1>{$_GET["individu"]}</h1>";
             $individu = $_GET["individu"];
             $individu = explode(" : ", $individu);
             $nom = $individu[0];
             $prenom = $individu[1];
-
-            //echo "<h1>$nom</h1>";
-            //echo "<h1>$prenom</h1>";
 
             //recherche de famille_id
             $requete_famille = "select id from famille where nom = ?";
             $preparation_famille = $database->prepare($requete_famille);
             $preparation_famille->execute([$_SESSION["famille"]]);
             $famille_id = $preparation_famille->fetch()["id"];
-
-            //echo "<h1>f = $famille_id</h1>";
 
             //recherche de l'id de l'individu (iid dans la table)
             $requete_iid = "select id from individu where nom = :nom and prenom = :prenom";
@@ -190,7 +178,6 @@ class ModelEvenement
                 'prenom' => $prenom
             ]);
             $iid = $preparation_iid->fetch()["id"];
-            //echo "<h1>iid = $iid</h1>";
 
             // recherche de la valeur de la clé = max(id) + 1
             $query = "select max(id) from evenement";
@@ -198,7 +185,6 @@ class ModelEvenement
             $tuple = $statement->fetch();
             $id = $tuple['0'];
             $id++;
-            //echo "<h1>id = $id</h1>";
 
             // ajout d'un nouveau tuple;
             $query = "insert into evenement value (:famille_id, :id, :iid, :event_type, :event_date, :event_lieu)";
@@ -219,9 +205,10 @@ class ModelEvenement
     }
 
     /**
-     * @param $famille_id
-     * @param $iid
-     * @return array|null Retourne la date et le lieu de naissance
+     * Fonction qui permet de retourner la date et le lieu de naissance d'un individu.
+     * @param $famille_id : l'id de la famille
+     * @param $iid : l'id de l'individu
+     * @return array|null : Retourne la date et le lieu de naissance
      */
     public static function getBirthInfos($famille_id, $iid){
         try {
@@ -244,8 +231,9 @@ class ModelEvenement
     }
 
     /**
-     * @param $famille_id
-     * @param $iid
+     * Fonction qui permet de retourner la date et le lieu de décès d'un individu.
+     * @param $famille_id : l'id de la famille
+     * @param $iid : l'id de l'individu
      * @return array|null Retourne la date et le lieu de décès
      */
     public static function getDeathInfos($famille_id, $iid){

@@ -10,7 +10,10 @@ class Model extends PDO {
     public function __construct() {
     }
 
-    //Singleton
+    /**
+     * Singleton.
+     * @return PDO : une instance de la classe Model
+     */
     public static function getInstance() {
         // les variables sont définies dans le fichier config.php
         include_once '../controller/config.php';

@@ -149,6 +149,7 @@ class ModelIndividu
     }
 
     /**
+     * Fonction qui permet de récupérer tous les individus issus de la famille d'un individu
      * @param $nom_famille : le nom de la famille qui nous intéresse
      * @return array|false|null : les individus issus de la famille, sous forme d'instances de ModelIndividu
      */
@@ -167,10 +168,11 @@ class ModelIndividu
     }
 
     /**
+     * Fonction qui permet d'insérer un nouvel individu.
      * @param $nom : le nom de l'individu à ajouter
      * @param $prenom : le prénom de l'individu à ajouter
      * @param $sexe : le sexe de l'individu à ajouter
-     * @return mixed|null : l'id de l'individu ajouté
+     * @return array|null : un tableau avec les informations de l'individu inséré
      */
     public static function insert($famille, $nom, $prenom, $sexe) {
         try {
@@ -209,8 +211,9 @@ class ModelIndividu
     }
 
     /**
+     * Fonction qui permet de récupérer l'id maximum pour une famille.
      * @param $famille_id : l'id de la famille pour laquelle on cherche l'id max
-     * @return mixed|null : l'id max de des individus d'une famille
+     * @return mixed|null : l'id max des individus d'une famille
      */
     public static function getMaxIdFromFamily($famille_id){
         try {
@@ -231,9 +234,10 @@ class ModelIndividu
     }
 
     /**
+     * Fonction qui permet de récupérer toutes les informations relatives à un individu
      * @param $famille : la famille de l'individu sélectionné
      * @param $individu : l'individu sélectionné, avant traitement
-     * @return array|null : les informations de l'individu à transmettre au controller
+     * @return array|null : les informations de l'individu à transmettre au controller, sous forme de tableau
      */
     public static function getIndividuInfo($famille, $individu){
 
@@ -306,8 +310,6 @@ class ModelIndividu
 
             // Recherche des unions et des enfants issus de ces unions
             $id_mariees = ModelLien::getUnionMarried($famille_id, $iid, $sexe);
-
-            //Alors si $id_unions est NULL, cela veut bien dire qu'il n'y a pas d'union.
 
             /* Noms des mariées */
             $noms_mariees=array();

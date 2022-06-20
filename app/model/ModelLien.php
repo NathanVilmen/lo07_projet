@@ -13,13 +13,14 @@ class ModelLien
     private $lien_lieu;
 
     /**
-     * @param $famille_id
-     * @param $id
-     * @param $iid1
-     * @param $iid2
-     * @param $lien_type
-     * @param $lien_date
-     * @param $lien_lieu
+     * Constructeur de ModelLien
+     * @param $famille_id : l'id de la famille
+     * @param $id : l'id du lien
+     * @param $iid1 : l'id du premer individu
+     * @param $iid2 : l'id du second individu
+     * @param $lien_type : le type de lien
+     * @param $lien_date : la date du lien
+     * @param $lien_lieu : le lieu du lien
      */
     public function __construct($famille_id = NULL, $id = NULL, $iid1 = NULL, $iid2 = NULL, $lien_type = NULL, $lien_date = NULL, $lien_lieu = NULL) {
         // valeurs nulles si pas de passage de paramètres
@@ -147,14 +148,14 @@ class ModelLien
     }
 
     /**
-     * @return array|false|null le tableau de résultats de la requete
+     * Fonction qui permet de récupérer dans un tableau tous les liens de la famille d'un individu.
+     * @return array|false|null Le tableau de résultats de la requête
      */
     public static function getAll() {
         try {
             $database = Model::getInstance();
 
             $requete1 = "select * from lien where famille_id = (select id from famille where nom=?)";
-            //$preparation1 = $database->prepare($requete1);
             $preparation1 = $database->prepare($requete1);
 
             $preparation1->execute([$_SESSION["famille"]]);
@@ -169,7 +170,8 @@ class ModelLien
     }
 
     /**
-     * @return array|null un tableau avec des infos sur le parent ajouté
+     * Fonction qui permet de mettre à jour l'id du parents d'un individu.
+     * @return array|null Un tableau avec des infos sur le parent ajouté
      */
     public static function update(){
         try{
@@ -190,8 +192,6 @@ class ModelLien
             $tuple = $preparation_parent->fetch();
             $sexe = $tuple[0];
             $parent_id = $tuple[1];
-            //echo "<h1>sexe = $sexe</h1>";
-            //echo "<h1>parent_id = $parent_id</h1>";
 
             if($sexe == "H") {
                 $requete_lien = "update individu set pere = :parent_id where nom = :nom and prenom = :prenom";
@@ -214,6 +214,7 @@ class ModelLien
     }
 
     /**
+     * Fonction qui permet d'insérer un lien.
      * @return array|null un tableau avec des infos sur la personne ajoutée
      */
     public static function insert() {
@@ -283,6 +284,7 @@ class ModelLien
     }
 
     /**
+     * Fonction qui permet de trouver le conjoint d'un individu.
      * @param $famille_id l'id de la famille dont on cherche le conjoint
      * @param $iid l'id de la personne dont on cherche le conjoint
      * @param $sexe : sexe de la personne dont on cherche le conjoint
@@ -303,7 +305,6 @@ class ModelLien
                     'iid1'=> $iid
                 ]);
                 $result6=$statement->fetchAll();
-                //$id_mariees=$result6;
                 return $result6;
             } else{
                 $query7 = "select iid1 from lien where iid2=:iid2 and famille_id=:famille_id and (lien_type='MARIAGE' or lien_type='COUPLE' or lien_type='PACS')";
@@ -313,7 +314,6 @@ class ModelLien
                     'iid2'=> $iid
                 ]);
                 $result7=$statement->fetchAll();
-                //$id_mariees=$result7;
                 return $result7;
             }
         } catch (PDOException $e) {

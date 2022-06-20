@@ -8,7 +8,8 @@ class ModelFamille
     private $nom;
 
     /**
-     * @param $id l'id de la famille
+     * COnstructeur de ModelFamille
+     * @param $id : l'id de la famille
      * @param $nom : le nom de la famille
      */
     public function __construct($id = NULL, $nom = NULL) {
@@ -52,6 +53,7 @@ class ModelFamille
     }
 
     /**
+     * Fonction qui permet de récupérer tous les individus d'une famille dans un tableau.
      * @return array|false|null le tableau de résultats de la requete
      */
     public static function getAll() {
@@ -69,6 +71,7 @@ class ModelFamille
     }
 
     /**
+     * Fonction qui permet d'unsérer une nouvelle famille.
      * @param $nom : le nom de la famille
      * @return int|mixed|null : l'id de la famille insérée
      */
@@ -98,6 +101,7 @@ class ModelFamille
     }
 
     /**
+     * Fonction qui permet de récupérer tous les noms de la table famille
      * @return array|false|null : le résultat de la requête, soit un tableau des noms des familles
      */
     public static function getAllName() {
@@ -116,6 +120,7 @@ class ModelFamille
 
 
     /**
+     * Fonction qui permet de récupérer l'id d'une famille.
      * @param $nom : le nom de la famille pour laquelle on veut connaître l'id
      * @return mixed|null : le résultat de la requête, soit l'id de la famille
      */
