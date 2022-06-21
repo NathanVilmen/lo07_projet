@@ -40,7 +40,7 @@ class ControllerLien {
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
             include 'config.php';
-            if(count($individus)<2){
+            if(count($individus)<3){
                 $vue = $root . '/app/view/viewAddItemFirst.php';
             } else{
                 $vue = $root . '/app/view/lien/lienViewAddParent.php';
@@ -75,7 +75,7 @@ class ControllerLien {
             $individus = ModelIndividu::getAllFromFamily($_SESSION["famille"]);
 
             include 'config.php';
-            if(count($individus)<2){
+            if(count($individus)<3){
                 $vue = $root . '/app/view/viewAddItemFirst.php';
             } else{
                 $vue = $root . '/app/view/lien/lienViewAddUnion.php';

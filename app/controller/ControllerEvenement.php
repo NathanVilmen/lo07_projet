@@ -40,7 +40,7 @@ class ControllerEvenement {
 
             include 'config.php';
 
-            if($individus==NULL){
+            if(count($individus)<2){
                 $vue = $root . '/app/view/viewAddItemFirst.php';
             } else{
                 $vue = $root . '/app/view/evenement/evenementViewAdd.php';
